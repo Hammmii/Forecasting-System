@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Comparison Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; 
+            color: white;
+        }
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 16px;
+            overflow-y: auto; /* Allow scrolling */
+        }
+        .content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 16px;
+            margin-bottom: 16px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+        .card h2 {
+            margin: 0;
+            text-align: center;
+        }
+        .sidebar a {
+            display: block;
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .sidebar a:hover {
+            background-color: #444;
+        }
+        #comparisonImage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: calc(100vh - 100px);
+        }
+        #comparisonImage img {
+            max-width: 45%;
+            max-height: 90%;
+            margin: 0 10px;
+            display: none;
+        }
+        #comparisonHeading {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white; /* Change the color to match the dashboard text */
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-bg">
+        <source src="NN.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="sidebar">
+        <h2>Model Comparison</h2>
+        <a href="#arima_vs_ann">ARIMA vs ANN</a>
+        <a href="#sarima_vs_ann">SARIMA vs ANN</a>
+        <a href="#sarima_vs_arima">SARIMA vs ARIMA</a>
+        <a href="#sarima_vs_ets">SARIMA vs ETS</a>
+        <a href="#sarima_vs_hybrid">SARIMA vs HYBRID</a>
+        <a href="#sarima_vs_svr">SARIMA vs SVR</a>
+        <a href="#sarima_vs_prophet">SARIMA vs PROPHET</a>
+        <a href="#sarima_vs_lstm">SARIMA vs LSTM</a>
+        <a href="#arima_vs_lstm">ARIMA vs LSTM</a>
+        <a href="#arima_vs_ets">ARIMA vs ETS</a>
+        <a href="#arima_vs_hybrid">ARIMA vs HYBRID</a>
+        <a href="#arima_vs_svr">ARIMA vs SVR</a>
+        <a href="#arima_vs_prophet">ARIMA vs PROPHET</a>
+        <a href="#ann_vs_lstm">ANN vs LSTM</a>
+        <a href="#ann_vs_ets">ANN vs ETS</a>
+        <a href="#ann_vs_hybrid">ANN vs HYBRID</a>
+        <a href="#ann_vs_svr">ANN vs SVR</a>
+        <a href="#ann_vs_prophet">ANN vs PROPHET</a>
+        <a href="#lstm_vs_ets">LSTM vs ETS</a>
+        <a href="#lstm_vs_hybrid">LSTM vs HYBRID</a>
+        <a href="#lstm_vs_svr">LSTM vs SVR</a>
+        <a href="#lstm_vs_prophet">LSTM vs PROPHET</a>
+        <a href="#ets_vs_hybrid">ETS vs HYBRID</a>
+        <a href="#ets_vs_svr">ETS vs SVR</a>
+        <a href="#ets_vs_prophet">ETS vs PROPHET</a>
+        <a href="#hybrid_vs_svr">HYBRID vs SVR</a>
+        <a href="#hybrid_vs_prophet">HYBRID vs PROPHET</a>
+        <a href="#svr_vs_prophet">SVR vs PROPHET</a>
+    </div>
+    <div class="content">
+        <div id="comparisonHeading"></div>
+        <div id="comparisonImage" class="comparison">
+            <img id="arima_vs_ann_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_ann_2" src="ANN.png" alt="ANN">
+            <img id="sarima_vs_ann_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_ann_2" src="ANN.png" alt="ANN">
+            <img id="sarima_vs_arima_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_arima_2" src="ARIMA.png" alt="ARIMA">
+            <img id="sarima_vs_ets_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_ets_2" src="ETS.png" alt="ETS">
+            <img id="sarima_vs_hybrid_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_hybrid_2" src="HYBRID.png" alt="HYBRID">
+            <img id="sarima_vs_svr_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="sarima_vs_prophet_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="sarima_vs_lstm_1" src="SARIMA.png" alt="SARIMA">
+            <img id="sarima_vs_lstm_2" src="LSTM.png" alt="LSTM">
+            <img id="arima_vs_lstm_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_lstm_2" src="LSTM.png" alt="LSTM">
+            <img id="arima_vs_ets_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_ets_2" src="ETS.png" alt="ETS">
+            <img id="arima_vs_hybrid_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_hybrid_2" src="HYBRID.png" alt="HYBRID">
+            <img id="arima_vs_svr_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="arima_vs_prophet_1" src="ARIMA.png" alt="ARIMA">
+            <img id="arima_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="ann_vs_lstm_1" src="ANN.png" alt="ANN">
+            <img id="ann_vs_lstm_2" src="LSTM.png" alt="LSTM">
+            <img id="ann_vs_ets_1" src="ANN.png" alt="ANN">
+            <img id="ann_vs_ets_2" src="ETS.png" alt="ETS">
+            <img id="ann_vs_hybrid_1" src="ANN.png" alt="ANN">
+            <img id="ann_vs_hybrid_2" src="HYBRID.png" alt="HYBRID">
+            <img id="ann_vs_svr_1" src="ANN.png" alt="ANN">
+            <img id="ann_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="ann_vs_prophet_1" src="ANN.png" alt="ANN">
+            <img id="ann_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="lstm_vs_ets_1" src="LSTM.png" alt="LSTM">
+            <img id="lstm_vs_ets_2" src="ETS.png" alt="ETS">
+            <img id="lstm_vs_hybrid_1" src="LSTM.png" alt="LSTM">
+            <img id="lstm_vs_hybrid_2" src="HYBRID.png" alt="HYBRID">
+            <img id="lstm_vs_svr_1" src="LSTM.png" alt="LSTM">
+            <img id="lstm_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="lstm_vs_prophet_1" src="LSTM.png" alt="LSTM">
+            <img id="lstm_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="ets_vs_hybrid_1" src="ETS.png" alt="ETS">
+            <img id="ets_vs_hybrid_2" src="HYBRID.png" alt="HYBRID">
+            <img id="ets_vs_svr_1" src="ETS.png" alt="ETS">
+            <img id="ets_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="ets_vs_prophet_1" src="ETS.png" alt="ETS">
+            <img id="ets_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="hybrid_vs_svr_1" src="HYBRID.png" alt="HYBRID">
+            <img id="hybrid_vs_svr_2" src="SVR.png" alt="SVR">
+            <img id="hybrid_vs_prophet_1" src="HYBRID.png" alt="HYBRID">
+            <img id="hybrid_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+            <img id="svr_vs_prophet_1" src="SVR.png" alt="SVR">
+            <img id="svr_vs_prophet_2" src="PROPHET.png" alt="PROPHET">
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const modelId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('#comparisonImage img').forEach(img => {
+                    img.style.display = 'none';
+                });
+                document.getElementById(modelId + '_1').style.display = 'block';
+                document.getElementById(modelId + '_2').style.display = 'block';
+                
+                const comparisonHeading = modelId.replace(/_/g, ' ').toUpperCase();
+                document.getElementById('comparisonHeading').innerText = comparisonHeading;
+            });
+        });
+    </script>
+</body>
+</html>

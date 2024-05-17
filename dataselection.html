@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(8, 7, 7, 0.7); /* Transparent black */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+        main {
+            max-width: 600px;
+            margin: 100px auto; /* Moved the main content down */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dropdown {
+            margin-bottom: 20px;
+            color: antiquewhite;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid transparent; /* Transparent border */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            margin: 0;
+            padding: 0.6em 1em;
+            outline: none;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+            background-color: white;
+            border-radius: 10px;
+            color: #0a0101;
+            font-weight: 300;
+            font-size: 16px;
+            font-family: inherit;
+            z-index: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+        }
+
+        button:hover {
+            animation: sh0 0.5s ease-in-out both;
+        }
+
+        @keyframes sh0 {
+            0% {
+              transform: rotate(0deg) translate3d(0, 0, 0);
+            }
+
+            25% {
+              transform: rotate(7deg) translate3d(0, 0, 0);
+            }
+
+            50% {
+              transform: rotate(-7deg) translate3d(0, 0, 0);
+            }
+
+            75% {
+              transform: rotate(1deg) translate3d(0, 0, 0);
+            }
+
+            100% {
+              transform: rotate(0deg) translate3d(0, 0, 0);
+            }
+        }
+
+        button:hover span {
+            animation: storm 0.7s ease-in-out both;
+            animation-delay: 0.06s;
+        }
+
+        button::before,
+        button::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #0c0c0c;
+            opacity: 0;
+            transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+            z-index: -1;
+            transform: translate(100%, -25%) translate3d(0, 0, 0);
+        }
+
+        button:hover::before,
+        button:hover::after {
+            opacity: 0.15;
+            transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+        }
+
+        button:hover::before {
+            transform: translate3d(50%, 0, 0) scale(0.9);
+        }
+
+        button:hover::after {
+            transform: translate(50%, 0) scale(1.1);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop>
+        <source src="NN.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <header>
+        <h1>Dataset Selection</h1>
+    </header>
+    <main>
+        <div class="dropdown">
+            <label for="dataset">Select Sector:</label>
+            <select id="dataset">
+                <option value="energy">Energy Sector</option>
+                <option value="finance">Finance Sector</option>
+                <option value="environmental">Environmental Sector</option>
+            </select>
+        </div>
+        <div class="button-container">
+            <button onclick="window.location.href='model_comp.html'">Execute Forecast</button>
+            <button onclick="window.location.href='acf.html'">Show ACF/PACF</button>
+        </div>
+    </main>
+    <footer>
+        <a href="home.html">Home</a>
+    </footer>
+</body>
+</html>

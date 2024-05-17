@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; 
+            color: white; /* Set text color to white */
+        }
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 16px;
+        }
+        .content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            border: 1px solid #ddd;
+            /* Remove border-radius to make the box square */
+            padding: 16px;
+            margin-bottom: 16px;
+            width: 200px; /* Fixed width */
+            height: 200px; /* Fixed height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Added transition for pop-up and glow effect */
+        }
+        .card:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 0 20px rgba(255,255,255,0.5); 
+        }
+        .card h2 {
+            margin: 0;
+        }
+        .card p {
+            margin: 0;
+        }
+        .sidebar a {
+            display: block;
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .sidebar a:hover {
+            background-color: #444;
+        }
+        canvas {
+            max-width: 100%; /* Adjusting canvas size to fit its container */
+            max-height: 100%; /* Adjusting canvas size to fit its container */
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-bg">
+        <source src="NN.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="sidebar">
+        <h2>Forecasting Dashboard</h2> 
+        <a href="#customers">Customers</a>
+        <a href="#daily-views">Daily Views</a>
+        <a href="#sales">Sales</a>
+        <a href="start.html">Start</a>
+        <a href="graphs.html">Graphs</a> 
+    </div>
+    <div class="content">
+        <div class="card" id="customers">
+            <a href="dataselection.html"> 
+                <h2>DATA SELECTION</h2>
+            </a>
+            <canvas id="customersChart"></canvas>
+        </div>
+        <div class="card" id="daily-views">
+            <a href="dataselection.html"> 
+                <h2>DATA UPLOAD</h2>
+            </a>
+            <canvas id="dailyViewsChart"></canvas>
+        </div>
+        <div class="card" id="sales">
+            <a href="model_comp2.html">
+                <h2>MODEL COMPARISON</h2> 
+            </a>
+            <canvas id="salesChart"></canvas>
+        </div>
+        <div class="card" id="graphs">
+            <a href="graphs.html">
+                <h2>GRAPHS</h2> <!-- New Graphs card -->
+            </a>
+            <canvas id="graphsChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Generate random data for the charts
+        function generateRandomData() {
+            return Array.from({ length: 6 }, () => Math.floor(Math.random() * 100));
+        }
+
+        var customersChart = new Chart(document.getElementById('customersChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['A', 'B', 'C', 'D', 'E', 'F'],
+                datasets: [{
+                    label: 'Customers',
+                    data: generateRandomData(),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {}
+        });
+
+        var dailyViewsChart = new Chart(document.getElementById('dailyViewsChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Daily Views',
+                    data: generateRandomData(),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {}
+        });
+
+        var salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+            type: 'bar', // Change to horizontal bar chart
+            data: {
+                labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E', 'Product F'],
+                datasets: [{
+                    label: 'Sales',
+                    data: generateRandomData(),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {}
+        });
+
+        var graphsChart = new Chart(document.getElementById('graphsChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Segment A', 'Segment B', 'Segment C', 'Segment D', 'Segment E', 'Segment F'],
+                datasets: [{
+                    label: 'Graphs',
+                    data: generateRandomData(),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {}
+        });
+    </script>
+</body>
+</html>

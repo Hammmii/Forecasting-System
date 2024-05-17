@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Comparison Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; 
+            color: white;
+        }
+        .video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 16px;
+        }
+        .content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 16px;
+            margin-bottom: 16px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+        .card h2 {
+            margin: 0;
+            text-align: center;
+        }
+        .sidebar a {
+            display: block;
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .sidebar a:hover {
+            background-color: #444;
+        }
+        #modelImage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: calc(100vh - 32px);
+        }
+        #modelImage img {
+            max-width: 90%;
+            max-height: 90%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-bg">
+        <source src="NN.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="sidebar">
+        <h2>Model Comparison</h2>
+        <a href="#arima">ARIMA</a>
+        <a href="#ann">ANN</a>
+        <a href="#sarima">SARIMA</a>
+        <a href="#ets">ETS</a>
+        <a href="#hybrid">HYBRID</a>
+        <a href="#svr">SVR</a>
+        <a href="#prophet">PROPHET</a>
+        <a href="#lstm">LSTM</a>
+    </div>
+    <div class="content">
+        <div id="modelImage">
+            <img id="arimaImage" src="ARIMA.png" alt="ARIMA">
+            <img id="annImage" src="ANN.png" alt="ANN">
+            <img id="sarimaImage" src="SARIMA.png" alt="SARIMA">
+            <img id="etsImage" src="ETS.png" alt="ETS">
+            <img id="hybridImage" src="HYBRID.png" alt="HYBRID">
+            <img id="svrImage" src="SVR.png" alt="SVR">
+            <img id="prophetImage" src="PROPHET.png" alt="PROPHET">
+            <img id="lstmImage" src="LSTM.png" alt="LSTM">
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const modelId = this.getAttribute('href').substring(1);
+                document.querySelectorAll('#modelImage img').forEach(img => {
+                    img.style.display = 'none';
+                });
+                document.getElementById(modelId + 'Image').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

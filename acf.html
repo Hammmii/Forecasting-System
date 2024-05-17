@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF & PACF</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent video overflow */
+            color: white; /* Set text color to white */
+            font-family: Arial, sans-serif;
+        }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1; /* Ensure header is above the video */
+        }
+
+        .transparent-bg {
+            background-color: transparent; /* Make header transparent */
+        }
+
+        main {
+            margin-top: 100px; /* Adjust margin to ensure content is below header */
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .image-container img {
+            width: 70%; /* Increased size of the image */
+            height: auto;
+            margin-bottom: 20px;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 1; /* Ensure footer is above the video */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-bg">
+        <source src="globe.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <header class="transparent-bg">
+        <h1>ACF & PACF</h1>
+    </header>
+    <main>
+        <div class="image-container">
+            <img src="acf.png" alt="ACF Graph">
+        </div>
+    </main>
+    <footer class="transparent-bg">
+        <a href="home.html">Home</a>
+    </footer>
+</body>
+</html>
